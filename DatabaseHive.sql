@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.22, for osx10.8 (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.18-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: Hive
+-- Host: 127.0.0.1    Database: Hive
 -- ------------------------------------------------------
--- Server version	5.5.29
+-- Server version	10.0.18-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,8 +31,8 @@ CREATE TABLE `Annotation` (
   PRIMARY KEY (`ID`),
   KEY `FileAnnoFk` (`FileId`),
   KEY `UserAnnoFk` (`UserId`),
-  CONSTRAINT `FileAnnoFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`Id`),
-  CONSTRAINT `UserAnnoFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
+  CONSTRAINT `FileAnnoFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`ID`),
+  CONSTRAINT `UserAnnoFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,10 +55,9 @@ DROP TABLE IF EXISTS `FileInfo`;
 CREATE TABLE `FileInfo` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FileName` varchar(767) NOT NULL,
-  `FilePath` text NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `FileNameKey` (`FileName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,6 +66,7 @@ CREATE TABLE `FileInfo` (
 
 LOCK TABLES `FileInfo` WRITE;
 /*!40000 ALTER TABLE `FileInfo` DISABLE KEYS */;
+INSERT INTO `FileInfo` VALUES (1,'');
 /*!40000 ALTER TABLE `FileInfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `History` (
   `UserId` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `UserFk` (`UserId`),
-  CONSTRAINT `UserFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
+  CONSTRAINT `UserFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,20 +142,18 @@ DROP TABLE IF EXISTS `VersionInfo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `VersionInfo` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `FileName` varchar(767) DEFAULT NULL,
+  `FileInfoId` int(11) DEFAULT NULL,
+  `UserId` int(11) NOT NULL,
+  `Title` varchar(1024) DEFAULT NULL,
+  `Author` varchar(1024) DEFAULT NULL,
   `UploadDate` datetime NOT NULL,
   `CreatedDate` datetime DEFAULT NULL,
-  `Author` varchar(1024) DEFAULT NULL,
-  `FilePath` text,
-  `UserId` int(11) NOT NULL,
-  `hash` varchar(767) DEFAULT NULL,
-  `FileInfoId` int(11) DEFAULT NULL,
+  `CrcHash` varchar(767) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `FileName` (`FileName`),
-  UNIQUE KEY `HashUQ` (`hash`),
+  UNIQUE KEY `HashUQ` (`CrcHash`),
   KEY `UserFileFK` (`UserId`),
   KEY `FileInfoId` (`FileInfoId`),
-  CONSTRAINT `UserFileFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`),
+  CONSTRAINT `UserFileFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`),
   CONSTRAINT `VersionInfo_ibfk_1` FOREIGN KEY (`FileInfoId`) REFERENCES `FileInfo` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -184,8 +182,8 @@ CREATE TABLE `ViewHistory` (
   PRIMARY KEY (`ID`),
   KEY `FileViewFk` (`FileId`),
   KEY `UserViewFK` (`UserId`),
-  CONSTRAINT `FileViewFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`Id`),
-  CONSTRAINT `UserViewFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
+  CONSTRAINT `FileViewFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`ID`),
+  CONSTRAINT `UserViewFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,93 +195,6 @@ LOCK TABLES `ViewHistory` WRITE;
 /*!40000 ALTER TABLE `ViewHistory` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ViewHistory` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'Hive'
---
-
---
--- Dumping routines for database 'Hive'
---
-/*!50003 DROP PROCEDURE IF EXISTS `InsertDoc` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertDoc`(
-	in FilePath1 varchar(500),
-    in User int,
-    in DateCreated date,
-    in FileName1 varchar(50),
-    in DataType1 varchar(20),
-    in Author1 varchar(50)
-)
-BEGIN
-
-
-if exists (select * from File where FileName = FileName1) then
-     select -1;
- else
-     insert into File (FileName,UploadDate, CreatedDate, DataType, Author, FilePath, UserId) 
-     values(FileName1, now(), DateCreated, DataType1, Author1,FilePath1, User);
-     
-     select last_insert_id();
- end if;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ValidateUser` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidateUser`(
-	IN UName VARCHAR(45),
-	IN Pword VARCHAR(100)
-)
-BEGIN
-	  DECLARE UserId INT; 
-      DECLARE LastLoginDate DATETIME;
-     
-	SELECT 
-		id = UserId
-	FROM 
-		User
-	WHERE 
-		UserName = UName
-        AND Password = Pword;
-     
-      IF UserId IS NOT NULL 
-		THEN
-            BEGIN
-            UPDATE User
-			SET LastLoginDate = NOW()
-			WHERE Id = UserId;
-			SELECT  UserId 'ID'; -- User valid.
-            END;
-		ELSE 
-            SELECT -1; -- User invalid.
-		END IF;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -294,4 +205,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-20 20:23:13
+-- Dump completed on 2015-05-21 15:49:46
