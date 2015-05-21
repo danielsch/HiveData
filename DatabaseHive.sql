@@ -149,6 +149,7 @@ CREATE TABLE `VersionInfo` (
   `UploadDate` datetime NOT NULL,
   `CreatedDate` datetime DEFAULT NULL,
   `CrcHash` varchar(767) DEFAULT NULL,
+  `Description` longtext,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `HashUQ` (`CrcHash`),
   KEY `UserFileFK` (`UserId`),
@@ -205,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-21 15:49:46
+-- Dump completed on 2015-05-21 16:32:22
