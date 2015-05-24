@@ -1,0 +1,20 @@
+UPDATES:
+
+LastLogin:
+
+UUser User = UUser.User;
+
+new SQLUpdateClause(conn, configuration, Hive)
+    .where(User.id.eq(XXX))
+    .set(User.LastLogin, NOW())
+    .execute();
+    
+
+Password Update:
+
+UUser User = UUser.User;
+
+new SQLUpdateClause(conn, configuration, Hive)
+    .where(User.id.eq(XXX))
+    .set(User.Pword, "xxx")
+    .execute();

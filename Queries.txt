@@ -1,0 +1,8 @@
+SEARCH QUERIES:
+
+QHistory History = new QHistory("H");
+
+SQLQuery query = new SQLQuery(connection, configuration);
+List<String> Keyword = query.from(History)
+    .where(History.UserId.eq(xxx))
+    .list(History.Keyword, History.SearchDate);

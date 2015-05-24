@@ -1,0 +1,54 @@
+INSERTS:
+
+IFileInfo FileInfo = IFileInfo.FileInfo;
+
+new SQLInsertClause(conn, configuration, Hive )
+    .set(FileInfo.FileName, "xxx")
+    .set(FileInfo.FilePath, "xxxxxxx").execute();
+    
+
+IVersionInfo VersionInfo = IVersionInfo.VersionInfo;
+
+new SQLInsertClause(conn, configuration, Hive )
+    .set(VersionInfo.FileName, "xxx")
+    .set(VersionInfo.UploadDate, NOW())
+    .set(VersionInfo.CreatedDate, "xxxx")
+    .set(VersionInfo.Author, "xxxx"())
+    .set(VersionInfo.UserId, xxx())
+    .set(VersionInfo.Hash, "xxxx"())
+    .set(VersionInfo.FileInfoId, xxxx())
+    .set(VersionInfo.FilePath, "xxxxxxx").execute();
+
+
+IUser User = IUser.User;
+
+new SQLInsertClause(conn, configuration, Hive )
+	.set(User.Title, "xxx")
+    .set(User.FirstName, "xxx")
+    .set(User.LastName, "xxx")
+    .set(User.Gender, "xxx")
+    .set(User.Location, "xxx")
+    .set(User.Pword, "xxx")
+    .set(User.Admin, x)
+    .set(User.Sensitiv, x)
+    .set(User.Email, "xxx")
+    .set(User.Telephone, xxx)
+    .set(User.Website, "xxx")
+    .set(User.LastLogin, NOW())
+    .set(User.Bio, "xxxxxxx").execute();
+    
+
+IViewHistory ViewHistory = IViewHistory.ViewHistory;
+
+new SQLInsertClause(conn, configuration, Hive )
+    .set(ViewHistory.DateViewed, NOW())
+    .set(ViewHistory.UserId, xxx)
+    .set(ViewHistory.FileId, xxx).execute();
+    
+    
+IHistory History = IHistory.History;
+
+new SQLInsertClause(conn, configuration, Hive )
+    .set(History.SearchDate, NOW())
+    .set(History.Keyword, "xxx")
+    .set(History.UserId, xxx).execute();
