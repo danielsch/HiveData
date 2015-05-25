@@ -46,7 +46,6 @@ DROP TABLE IF EXISTS `FileInfo`;
 CREATE TABLE `FileInfo` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FileName` varchar(767) NOT NULL,
-  `FilePath` text NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `FileNameKey` (`FileName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -106,22 +105,16 @@ DROP TABLE IF EXISTS `VersionInfo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `VersionInfo` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `FileName` varchar(767) DEFAULT NULL,
   `UploadDate` datetime NOT NULL,
   `CreatedDate` datetime DEFAULT NULL,
-<<<<<<< HEAD
   `CrcHash` varchar(767) DEFAULT NULL,
   `Description` longtext,
-=======
   `Author` varchar(1024) DEFAULT NULL,
-  `FilePath` text,
   `UserId` int(11) NOT NULL,
   `hash` varchar(767) DEFAULT NULL,
   `FileInfoId` int(11) DEFAULT NULL,
->>>>>>> 6aee583... Changes for Swoorup
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `FileName` (`FileName`),
-  UNIQUE KEY `HashUQ` (`hash`),
+  UNIQUE KEY `CrcHashUQ` (`CrcHash`),
   KEY `UserFileFK` (`UserId`),
   KEY `FileInfoId` (`FileInfoId`),
   CONSTRAINT `UserFileFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`),
@@ -157,9 +150,3 @@ CREATE TABLE `ViewHistory` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
-<<<<<<< HEAD
--- Dump completed on 2015-05-21 16:32:22
-=======
--- Dump completed on 2015-05-24 20:04:41
->>>>>>> 6aee583... Changes for Swoorup
