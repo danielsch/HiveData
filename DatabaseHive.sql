@@ -8,7 +8,8 @@
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_
+ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
@@ -92,9 +93,20 @@ CREATE TABLE `User` (
   `Telephone` int(20) DEFAULT NULL,
   `Website` varchar(1024) DEFAULT NULL,
   `Bio` text,
+  `UserName` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `User`
+--
+
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES (1,'Dian','Octaviani','b8f8312b939f00abb38eeafd4fd107f3',1,1,'d.octaviani@DataHive.com','2015-05-25 10:02:06','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'Doctaviani'),(2,'Swoorup','Joshi','ac5a5dd7658194dcdc9695bed9ff5a75',1,1,'S.Joshi@DataHive.com','2015-05-25 10:03:16','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'SJoshi'),(3,'Cameron','Russell','59c44fb5750051e1afbc8814dcd2a1c2',1,1,'C.Russell@DataHive.com','2015-05-25 10:04:49','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'CRussell'),(4,'Phillipe','Majuri','d5c40415cf871c5980de870858dd551c',1,1,'P.Majuri@DataHive.com','2015-05-25 10:05:51','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'PMajuri'),(5,'Aidan','Orr','231820c5c04e155be7ddebf4ece94da5',1,1,'A.Orr@DataHive.com','2015-05-25 10:07:06','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'AOrr'),(6,'Daniel','Schofield','2aed134614b35b8f15af521abd41e242',1,1,'D.Schofield@DataHive.com','2015-05-25 10:08:13','Developer',NULL,NULL,'Manchester',0,'http://104.199.149.190',NULL,'Dschofield'),(7,'Admin','Admin','3b244e70702e8cbd5be48cfec22e6854',1,1,'Admin@DataHive.com','2015-05-25 10:09:01','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'Admin');
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `VersionInfo`
