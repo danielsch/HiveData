@@ -1,15 +1,14 @@
--- MySQL dump 10.13  Distrib 5.6.22, for osx10.8 (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.18-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: Hive
+-- Host: 127.0.0.1    Database: Hive
 -- ------------------------------------------------------
--- Server version	5.5.29
+-- Server version	10.0.18-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_
-ZONE */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
@@ -32,10 +31,19 @@ CREATE TABLE `Annotation` (
   PRIMARY KEY (`ID`),
   KEY `FileAnnoFk` (`FileId`),
   KEY `UserAnnoFk` (`UserId`),
-  CONSTRAINT `FileAnnoFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`Id`),
-  CONSTRAINT `UserAnnoFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
+  CONSTRAINT `FileAnnoFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`ID`),
+  CONSTRAINT `UserAnnoFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Annotation`
+--
+
+LOCK TABLES `Annotation` WRITE;
+/*!40000 ALTER TABLE `Annotation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Annotation` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `FileInfo`
@@ -53,6 +61,15 @@ CREATE TABLE `FileInfo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `FileInfo`
+--
+
+LOCK TABLES `FileInfo` WRITE;
+/*!40000 ALTER TABLE `FileInfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `FileInfo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `History`
 --
 
@@ -66,9 +83,18 @@ CREATE TABLE `History` (
   `UserId` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `UserFk` (`UserId`),
-  CONSTRAINT `UserFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
+  CONSTRAINT `UserFk` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `History`
+--
+
+LOCK TABLES `History` WRITE;
+/*!40000 ALTER TABLE `History` DISABLE KEYS */;
+/*!40000 ALTER TABLE `History` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `User`
@@ -90,7 +116,7 @@ CREATE TABLE `User` (
   `Title` char(4) DEFAULT NULL,
   `Gender` tinyint(1) DEFAULT NULL,
   `Location` char(255) DEFAULT NULL,
-  `Telephone` int(20) DEFAULT NULL,
+  `Telephone` varchar(1024) DEFAULT NULL,
   `Website` varchar(1024) DEFAULT NULL,
   `Bio` text,
   `UserName` varchar(1024) DEFAULT NULL,
@@ -104,7 +130,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'Dian','Octaviani','b8f8312b939f00abb38eeafd4fd107f3',1,1,'d.octaviani@DataHive.com','2015-05-25 10:02:06','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'Doctaviani'),(2,'Swoorup','Joshi','ac5a5dd7658194dcdc9695bed9ff5a75',1,1,'S.Joshi@DataHive.com','2015-05-25 10:03:16','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'SJoshi'),(3,'Cameron','Russell','59c44fb5750051e1afbc8814dcd2a1c2',1,1,'C.Russell@DataHive.com','2015-05-25 10:04:49','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'CRussell'),(4,'Phillipe','Majuri','d5c40415cf871c5980de870858dd551c',1,1,'P.Majuri@DataHive.com','2015-05-25 10:05:51','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'PMajuri'),(5,'Aidan','Orr','231820c5c04e155be7ddebf4ece94da5',1,1,'A.Orr@DataHive.com','2015-05-25 10:07:06','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'AOrr'),(6,'Daniel','Schofield','2aed134614b35b8f15af521abd41e242',1,1,'D.Schofield@DataHive.com','2015-05-25 10:08:13','Developer',NULL,NULL,'Manchester',0,'http://104.199.149.190',NULL,'Dschofield'),(7,'Admin','Admin','3b244e70702e8cbd5be48cfec22e6854',1,1,'Admin@DataHive.com','2015-05-25 10:09:01','Developer',NULL,NULL,'Perth',0,'http://104.199.149.190',NULL,'Admin');
+INSERT INTO `User` VALUES (1,'Dian','Octaviani','b8f8312b939f00abb38eeafd4fd107f3',1,1,'d.octaviani@DataHive.com','2015-05-25 10:02:06','Developer',NULL,0,'Perth','0','http://104.199.149.190',NULL,'Doctaviani'),(2,'Swoorup','Joshi','ac5a5dd7658194dcdc9695bed9ff5a75',1,1,'S.Joshi@DataHive.com','2015-05-25 10:03:16','Developer','Mr.',1,'Perth','346345643','http://104.199.149.190','Hi there','SJoshi'),(3,'Cameron','Russell','59c44fb5750051e1afbc8814dcd2a1c2',1,1,'C.Russell@DataHive.com','2015-05-25 10:04:49','Developer',NULL,1,'Perth','0','http://104.199.149.190',NULL,'CRussell'),(4,'Phillipe','Majuri','d5c40415cf871c5980de870858dd551c',1,1,'P.Majuri@DataHive.com','2015-05-25 10:05:51','Developer',NULL,1,'Perth','0','http://104.199.149.190',NULL,'PMajuri'),(5,'Aidan','Orr','231820c5c04e155be7ddebf4ece94da5',1,1,'A.Orr@DataHive.com','2015-05-25 10:07:06','Developer',NULL,1,'Perth','0','http://104.199.149.190',NULL,'AOrr'),(6,'Daniel','Schofield','2aed134614b35b8f15af521abd41e242',1,1,'D.Schofield@DataHive.com','2015-05-25 10:08:13','Developer',NULL,1,'Manchester','0','http://104.199.149.190',NULL,'Dschofield'),(7,'Admin','Admin','3b244e70702e8cbd5be48cfec22e6854',1,1,'Admin@DataHive.com','2015-05-25 10:09:01','Developer',NULL,0,'Perth','0','http://104.199.149.190',NULL,'Admin');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,10 +155,19 @@ CREATE TABLE `VersionInfo` (
   UNIQUE KEY `CrcHashUQ` (`CrcHash`),
   KEY `UserFileFK` (`UserId`),
   KEY `FileInfoId` (`FileInfoId`),
-  CONSTRAINT `UserFileFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`),
+  CONSTRAINT `UserFileFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`),
   CONSTRAINT `VersionInfo_ibfk_1` FOREIGN KEY (`FileInfoId`) REFERENCES `FileInfo` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `VersionInfo`
+--
+
+LOCK TABLES `VersionInfo` WRITE;
+/*!40000 ALTER TABLE `VersionInfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `VersionInfo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ViewHistory`
@@ -149,10 +184,19 @@ CREATE TABLE `ViewHistory` (
   PRIMARY KEY (`ID`),
   KEY `FileViewFk` (`FileId`),
   KEY `UserViewFK` (`UserId`),
-  CONSTRAINT `FileViewFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`Id`),
-  CONSTRAINT `UserViewFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
+  CONSTRAINT `FileViewFk` FOREIGN KEY (`FileId`) REFERENCES `VersionInfo` (`ID`),
+  CONSTRAINT `UserViewFK` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ViewHistory`
+--
+
+LOCK TABLES `ViewHistory` WRITE;
+/*!40000 ALTER TABLE `ViewHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ViewHistory` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -162,3 +206,5 @@ CREATE TABLE `ViewHistory` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-05-26 22:04:50
